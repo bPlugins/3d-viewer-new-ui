@@ -259,6 +259,15 @@ the more developed frame and is a one-line change if you want it the other way.
     25px gap). The PNG has ~67px of transparent padding below the shape, hence
     `bottom: -67px`.
 
+    It's `position: fixed`, not `absolute` — pinned to the *viewport* corner,
+    not the page. Steps 2 and 3 run to 1120–1393px of content, taller than most
+    browser windows, so an absolutely-positioned blob would sit at the bottom of
+    that whole scrollable page and never be seen without scrolling all the way
+    down. Fixed keeps it in view the whole time, like a background. Confirmed
+    with a scroll-and-screenshot test (window shorter than the page, captured at
+    two scroll offsets): the blob is pixel-identical at both, while the content
+    behind it scrolls normally.
+
 ## Assets
 
 `public/assets/` holds the three images the UI loads:

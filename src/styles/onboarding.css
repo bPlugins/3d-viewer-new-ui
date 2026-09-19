@@ -10,11 +10,16 @@
 }
 
 .bp3d-ob-blob {
-  position: absolute;
+  /* Fixed, not absolute: on the taller steps (2 and 3 run to ~1120-1393px of
+     content) an absolutely-positioned blob sits at the bottom of that whole
+     scrollable page, invisible until scrolled all the way down. Fixed pins
+     it to the viewport corner instead, so it reads as a background — always
+     in view, scrolling past nothing. */
+  position: fixed;
   right: -272px;
   bottom: -67px; /* PNG has ~67px of transparent padding below the shape;
-                     this tucks the visible edge flush with the page bottom,
-                     the way screen 1 exports it */
+                     this tucks the visible edge flush with the viewport
+                     bottom, the way screen 1 exports it */
   width: 483px;
   pointer-events: none;
   user-select: none;
