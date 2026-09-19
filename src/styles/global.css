@@ -1,38 +1,13 @@
-@import "./tokens.css";
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
+/*
+ * Standalone harness only — this file is NOT part of what gets ported into the
+ * plugin. It exists so `npm run dev` renders on a full-bleed page; inside
+ * wp-admin, WordPress already owns html/body and must not be restyled.
+ *
+ * Everything the UI actually needs is in base.css, scoped to .bp3d-app.
+ */
 html,
 body {
   margin: 0;
   padding: 0;
-}
-
-body {
-  background: var(--page-bg);
-  font-family: var(--font);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--text-heading);
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: 0;
-  background: none;
-  padding: 0;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-figure {
-  margin: 0;
+  background: #eef1fa;
 }

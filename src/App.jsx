@@ -5,6 +5,7 @@ import StepCustomize from './screens/StepCustomize'
 import StepPublish from './screens/StepPublish'
 import AddNew from './pages/AddNew'
 import SettingsPage from './pages/Settings'
+import './styles/base.css'
 import './styles/onboarding.css'
 import './styles/admin.css'
 
@@ -37,6 +38,12 @@ function Onboarding({ step: initial }) {
   )
 }
 
+function Screen({ route }) {
+  if (route.view === 'add-new') return <AddNew key={route.tab} initialTab={route.tab} />
+  if (route.view === 'settings') return <SettingsPage key={route.tab} initialTab={route.tab} />
+  return <Onboarding step={route.step} />
+}
+
 export default function App() {
   const [route, setRoute] = useState(parseHash)
 
@@ -46,7 +53,14 @@ export default function App() {
     return () => window.removeEventListener('hashchange', sync)
   }, [])
 
-  if (route.view === 'add-new') return <AddNew key={route.tab} initialTab={route.tab} />
-  if (route.view === 'settings') return <SettingsPage key={route.tab} initialTab={route.tab} />
-  return <Onboarding step={route.step} />
+  /*
+   * .bp3d-app is the single scope every rule in this UI hangs off — it carries
+   * the design tokens and the element resets, so nothing leaks into wp-admin
+   * and wp-admin's own styles cannot reach in. Keep it as the outermost node.
+   */
+  return (
+    <div className="bp3d-app">
+      <Screen route={route} />
+    </div>
+  )
 }

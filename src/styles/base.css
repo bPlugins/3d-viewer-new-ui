@@ -1,0 +1,138 @@
+/*
+ * App root — everything this UI renders lives inside .bp3d-app.
+ *
+ * Three rules keep it safe to drop into wp-admin:
+ *
+ *   1. No selector here or in any other sheet may reach outside .bp3d-app.
+ *      No html, no body, no bare element selectors — wp-admin owns those.
+ *   2. The element resets are written `.bp3d-app :where(el)`, which is exactly
+ *      one class of specificity: enough to beat wp-admin's bare `p`, `h2`, `ul`
+ *      rules (0,0,1), and equal to a component's own `.bp3d-*` rule so the
+ *      component wins on source order. Hence base.css must be imported FIRST
+ *      in App.jsx — before onboarding.css and admin.css. Plain `:where(...)`
+ *      would not work here: at zero specificity wp-admin's `p { margin:1em 0 }`
+ *      would win.
+ *   3. The defensive block at the bottom goes the other way: at (0,1,1) it
+ *      outranks the component classes too, so it may only name properties no
+ *      component sets.
+ */
+@import "./tokens.css";
+
+.bp3d-app {
+  /* Full-height screens measure against this rather than 100vh, so the
+     wp-admin toolbar does not add 32px of scroll to every page. */
+  --bp3d-viewport: 100vh;
+
+  font-family: var(--bp3d-font);
+  /* Pinned to the browser defaults the design was measured against — wp-admin
+     puts 13px/1.4 on <body> and every unsized component would inherit it. */
+  font-size: 16px;
+  line-height: normal;
+  color: var(--bp3d-ob-text-heading);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.wp-admin .bp3d-app {
+  --bp3d-viewport: calc(100vh - 32px);
+
+  /* Bleed out of #wpcontent's gutter and #wpbody-content's footer padding so
+     the screens sit flush the way they do standalone. */
+  margin: 0 0 -65px -20px;
+}
+
+@media screen and (max-width: 782px) {
+  body.wp-admin .bp3d-app {
+    --bp3d-viewport: calc(100vh - 46px);
+    margin-left: -10px;
+  }
+}
+
+.bp3d-app,
+.bp3d-app *,
+.bp3d-app *::before,
+.bp3d-app *::after {
+  box-sizing: border-box;
+}
+
+/* ---- element normalisation (see specificity note above) ----
+   Values are the browser defaults this UI was measured against, restated so
+   wp-admin's own `p`, `h2`, `ul` rules cannot supply different ones. */
+.bp3d-app :where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol, li) {
+  margin: 0;
+  padding: 0;
+}
+
+.bp3d-app :where(h1, h2, h3, h4, h5, h6) {
+  font-weight: bold;
+  line-height: normal;
+  color: inherit;
+}
+
+/* wp-admin's h1–h6 font sizes happen to match the UA defaults today; pinning
+   them means it stays true if that changes. */
+.bp3d-app :where(h1) { font-size: 2em; }
+.bp3d-app :where(h2) { font-size: 1.5em; }
+.bp3d-app :where(h3) { font-size: 1.17em; }
+.bp3d-app :where(h4) { font-size: 1em; }
+.bp3d-app :where(h5) { font-size: 0.83em; }
+.bp3d-app :where(h6) { font-size: 0.67em; }
+
+/* <p> carries no UA typography at all, so everything is inherited. wp-admin
+   sets font-size/line-height on it directly — this puts it back. */
+.bp3d-app :where(p) {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.bp3d-app :where(ul, ol) {
+  list-style: none;
+}
+
+.bp3d-app :where(a) {
+  color: inherit;
+}
+
+.bp3d-app :where(img) {
+  display: block;
+  max-width: 100%;
+  border: 0;
+}
+
+.bp3d-app :where(button) {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  padding: 0;
+}
+
+/* wp-admin puts `line-height: 2` / `vertical-align: middle` on bare form
+   controls, which shifts them inside their line box. Back to the UA defaults
+   the layout was measured against. */
+.bp3d-app :where(input, select, textarea) {
+  font-family: inherit;
+  line-height: normal;
+  vertical-align: baseline;
+}
+
+/* ---- defensive: undo wp-admin's bare-element form styling ----
+   wp-admin/css/forms.css styles `select`, `textarea` and `input[type=…]`
+   directly. Our component classes already win on the properties they set;
+   these are the leftovers they don't set, so listing them here cannot
+   shadow a component rule. */
+.bp3d-app input,
+.bp3d-app select,
+.bp3d-app textarea {
+  min-height: 0;
+  max-width: none;
+  box-shadow: none;
+}
+
+.bp3d-app input:focus,
+.bp3d-app select:focus,
+.bp3d-app textarea:focus {
+  box-shadow: none;
+}

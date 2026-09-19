@@ -2,21 +2,21 @@ import { ChevronDown, AlertTriangle } from './icons'
 
 export function AdminNotice({ onEnable, onDismiss }) {
   return (
-    <div className="wp-notice">
-      <span className="wp-notice__icon">
+    <div className="bp3d-notice">
+      <span className="bp3d-notice__icon">
         <AlertTriangle size={16} />
       </span>
-      <p className="wp-notice__text">
+      <p className="bp3d-notice__text">
         Membership is disabled, so students &amp; instructors can't sign up
         <strong>. Enable</strong> it via <strong>Settings</strong> &gt;{' '}
         <strong>General</strong> &gt; <strong>Membership</strong> by turning on
         “Anyone can register.”
       </p>
-      <div className="wp-notice__actions">
-        <button type="button" className="wp-btn wp-btn--primary" onClick={onEnable}>
+      <div className="bp3d-notice__actions">
+        <button type="button" className="bp3d-btn bp3d-btn--primary" onClick={onEnable}>
           Enable
         </button>
-        <button type="button" className="wp-btn wp-btn--link" onClick={onDismiss}>
+        <button type="button" className="bp3d-btn bp3d-btn--link" onClick={onDismiss}>
           Dismiss
         </button>
       </div>
@@ -26,9 +26,9 @@ export function AdminNotice({ onEnable, onDismiss }) {
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="wp">
-      <div className="wp__inner">
-        <div className="wp__screen-options">
+    <div className="bp3d-admin">
+      <div className="bp3d-admin__inner">
+        <div className="bp3d-admin__screen-options">
           <button type="button">
             Screen Options <ChevronDown size={14} />
           </button>
@@ -38,7 +38,7 @@ export default function AdminLayout({ children }) {
 
         {children}
 
-        <footer className="wp-foot">
+        <footer className="bp3d-foot">
           <span>
             Thank you for creating with{' '}
             <a href="https://wordpress.org" target="_blank" rel="noreferrer">

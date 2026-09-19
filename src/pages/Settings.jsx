@@ -22,11 +22,11 @@ const MIME_TYPES = [
 
 function DeleteDataCard({ value, onChange }) {
   return (
-    <div className="wp-danger-card">
-      <span className="wp-danger-card__icon"><Trash size={20} /></span>
-      <div className="wp-row__main">
-        <h4 className="wp-row__title">Delete data on uninstall</h4>
-        <p className="wp-row__desc">Delete all plugin data when uninstalling.</p>
+    <div className="bp3d-danger-card">
+      <span className="bp3d-danger-card__icon"><Trash size={20} /></span>
+      <div className="bp3d-row__main">
+        <h4 className="bp3d-row__title">Delete data on uninstall</h4>
+        <p className="bp3d-row__desc">Delete all plugin data when uninstalling.</p>
       </div>
       <Toggle checked={value} onChange={onChange} tone="danger" onLabel="Yes" offLabel="No" />
     </div>
@@ -35,10 +35,10 @@ function DeleteDataCard({ value, onChange }) {
 
 function ActionBar() {
   return (
-    <div className="wp-actions">
-      <button type="button" className="wp-btn wp-btn--save"><Save size={17} /> Save Changes</button>
-      <button type="button" className="wp-btn wp-btn--reset"><RotateCcw size={17} /> Reset Section</button>
-      <button type="button" className="wp-btn wp-btn--danger"><Trash size={17} /> Reset All</button>
+    <div className="bp3d-actions">
+      <button type="button" className="bp3d-btn bp3d-btn--save"><Save size={17} /> Save Changes</button>
+      <button type="button" className="bp3d-btn bp3d-btn--reset"><RotateCcw size={17} /> Reset Section</button>
+      <button type="button" className="bp3d-btn bp3d-btn--danger"><Trash size={17} /> Reset All</button>
     </div>
   )
 }
@@ -53,23 +53,23 @@ function GeneralTab() {
 
   return (
     <>
-      <div className="wp-subcard">
-        <div className="wp-subcard__head">
+      <div className="bp3d-subcard">
+        <div className="bp3d-subcard__head">
           <div>
-            <h3 className="wp-subcard__title">Allowed MIME Types</h3>
-            <p className="wp-subcard__desc">
+            <h3 className="bp3d-subcard__title">Allowed MIME Types</h3>
+            <p className="bp3d-subcard__desc">
               Select which 3D model file types can be uploaded to the media library.
             </p>
           </div>
-          <div className="wp-linkbtns">
-            <button type="button" className="wp-linkbtn" onClick={() => setAll(true)}>Select All</button>
-            <button type="button" className="wp-linkbtn wp-linkbtn--muted" onClick={() => setAll(false)}>
+          <div className="bp3d-linkbtns">
+            <button type="button" className="bp3d-linkbtn" onClick={() => setAll(true)}>Select All</button>
+            <button type="button" className="bp3d-linkbtn bp3d-linkbtn--muted" onClick={() => setAll(false)}>
               Deselect All
             </button>
           </div>
         </div>
 
-        <div className="wp-mime-grid">
+        <div className="bp3d-mime-grid">
           {MIME_TYPES.map(([label, ext]) => (
             <MimeTile
               key={label}
@@ -81,7 +81,7 @@ function GeneralTab() {
           ))}
         </div>
 
-        <div className="wp-infobar">
+        <div className="bp3d-infobar">
           <Info size={18} />
           GLB and GLTF are enabled by default; enable any other format you need here.
         </div>
@@ -131,7 +131,7 @@ function ShortcodeTab() {
 
   return (
     <>
-      <h3 className="wp-section-title">3D Viewer Settings</h3>
+      <h3 className="bp3d-section-title">3D Viewer Settings</h3>
 
       <SettingRow
         Icon={Move}
@@ -162,9 +162,9 @@ function SelectorsTab() {
 
   return (
     <>
-      <h3 className="wp-section-title">3D Viewer Settings</h3>
+      <h3 className="bp3d-section-title">3D Viewer Settings</h3>
 
-      <div className="wp-rows--loose">
+      <div className="bp3d-rows--loose">
       {SELECTOR_ROWS.map((row) => (
         <SettingRow
           key={row.id}
@@ -173,7 +173,7 @@ function SelectorsTab() {
           desc="Enable / Disable Gutenberg Shortcode Generator."
         >
           {row.kind === 'selector' ? (
-            <span className="wp-selector-field">
+            <span className="bp3d-selector-field">
               {row.value}
               <Copy size={16} />
             </span>
@@ -198,18 +198,18 @@ export default function Settings({ initialTab }) {
 
   return (
     <AdminLayout>
-      <div className="wp-settings-head">
-        <h1 className="wp-settings-head__title">3D Viewer Settings</h1>
-        <div className="wp-search">
+      <div className="bp3d-settings-head">
+        <h1 className="bp3d-settings-head__title">3D Viewer Settings</h1>
+        <div className="bp3d-search">
           <Search size={20} />
           <input placeholder="Search settings..." />
         </div>
       </div>
 
-      <div className="wp-panel">
+      <div className="bp3d-panel">
         <TabStrip tabs={TABS} value={tab} onChange={setTab} />
 
-        <div className={`wp-settings-body${tab === 'general' ? '' : ' wp-settings-body--flush'}`}>
+        <div className={`bp3d-settings-body${tab === 'general' ? '' : ' bp3d-settings-body--flush'}`}>
           {tab === 'general' && <GeneralTab />}
           {tab === 'woo' && <WooTab />}
           {tab === 'shortcode' && <ShortcodeTab />}

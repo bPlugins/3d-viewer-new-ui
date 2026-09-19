@@ -23,14 +23,14 @@ const ITEMS = [
 
 export default function Highlights() {
   return (
-    <div className="ob-highlights">
+    <div className="bp3d-ob-highlights">
       {ITEMS.map(({ tone, Icon, title, body }) => (
-        <div className="ob-highlight" key={title}>
-          <span className={`ob-highlight__icon ob-highlight__icon--${tone}`}>
+        <div className="bp3d-ob-highlight" key={title}>
+          <span className={`bp3d-ob-highlight__icon bp3d-ob-highlight__icon--${tone}`}>
             <Icon size={16} />
           </span>
-          <h4 className="ob-highlight__title">{title}</h4>
-          <p className="ob-highlight__body">{body}</p>
+          <h4 className="bp3d-ob-highlight__title">{title}</h4>
+          <p className="bp3d-ob-highlight__body">{body}</p>
         </div>
       ))}
     </div>

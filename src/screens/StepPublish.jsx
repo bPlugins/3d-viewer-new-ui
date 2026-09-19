@@ -36,18 +36,18 @@ export default function StepPublish({ value, onChange, onBack, onNext, onDashboa
     <>
       <Stepper current={3} />
 
-      <p className="ob-eyebrow">Last step</p>
-      <h2 className="ob-title">How will you add models?</h2>
-      <p className="ob-lede ob-lede--mid">
+      <p className="bp3d-ob-eyebrow">Last step</p>
+      <h2 className="bp3d-ob-title">How will you add models?</h2>
+      <p className="bp3d-ob-lede bp3d-ob-lede--mid">
         Pick how you usually build pages and the steps below will match. You can
         still use any of the other methods later.
       </p>
 
-      <p className="ob-section-label" style={{ marginTop: 37 }}>
+      <p className="bp3d-ob-section-label" style={{ marginTop: 37 }}>
         Preferred method
       </p>
 
-      <div className="ob-methods" role="radiogroup" aria-label="Preferred method">
+      <div className="bp3d-ob-methods" role="radiogroup" aria-label="Preferred method">
         {METHODS.map(({ id, tone, Icon, title, sub }) => (
           <button
             type="button"
@@ -55,37 +55,37 @@ export default function StepPublish({ value, onChange, onBack, onNext, onDashboa
             role="radio"
             aria-checked={value === id}
             onClick={() => onChange?.(id)}
-            className={`ob-method${tone === 'neutral' ? '' : ` ob-method--${tone}`}`}
+            className={`bp3d-ob-method${tone === 'neutral' ? '' : ` bp3d-ob-method--${tone}`}`}
           >
-            <span className="ob-method__icon">
+            <span className="bp3d-ob-method__icon">
               <Icon size={20} />
             </span>
             <span>
-              <span className="ob-method__title">{title}</span>
-              <span className="ob-method__sub">{sub}</span>
+              <span className="bp3d-ob-method__title">{title}</span>
+              <span className="bp3d-ob-method__sub">{sub}</span>
             </span>
           </button>
         ))}
       </div>
 
-      <p className="ob-note">
+      <p className="bp3d-ob-note">
         Three ways to add a model — pick one above for step-by-step instructions:
       </p>
 
       <Highlights />
 
-      <hr className="ob-divider" style={{ marginTop: 36 }} />
+      <hr className="bp3d-ob-divider" style={{ marginTop: 36 }} />
 
-      <div className="ob-footer">
-        <button type="button" className="ob-btn ob-btn--ghost" onClick={onBack}>
+      <div className="bp3d-ob-footer">
+        <button type="button" className="bp3d-ob-btn bp3d-ob-btn--ghost" onClick={onBack}>
           &lt; Back
         </button>
 
-        <button type="button" className="ob-btn ob-btn--link" onClick={onDashboard}>
+        <button type="button" className="bp3d-ob-btn bp3d-ob-btn--link" onClick={onDashboard}>
           Go to Dashboard
         </button>
 
-        <button type="button" className="ob-btn ob-btn--primary" onClick={onNext}>
+        <button type="button" className="bp3d-ob-btn bp3d-ob-btn--primary" onClick={onNext}>
           Add Your First 3D Model
           <ArrowRightIcon />
         </button>

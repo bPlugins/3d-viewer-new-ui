@@ -23,25 +23,25 @@ const PREVIEW_SRC = '/assets/model-preview.jpg'
 
 function LivePreviewCard() {
   return (
-    <div className="wp-preview">
-      <div className="wp-preview__head">
-        <span className="wp-preview__title">
+    <div className="bp3d-preview">
+      <div className="bp3d-preview__head">
+        <span className="bp3d-preview__title">
           <Eye size={18} /> Live Preview
         </span>
-        <button type="button" className="wp-icon-btn" aria-label="Open preview in new tab">
+        <button type="button" className="bp3d-icon-btn" aria-label="Open preview in new tab">
           <ExternalLink size={17} />
         </button>
       </div>
-      <div className="wp-preview__stage">
+      <div className="bp3d-preview__stage">
         <img src={PREVIEW_SRC} alt="Preview of the 3D model" />
       </div>
-      <div className="wp-preview__controls">
+      <div className="bp3d-preview__controls">
         <div>
-          <button type="button" className="wp-icon-btn" aria-label="Reset view"><RefreshCw size={17} /></button>
-          <button type="button" className="wp-icon-btn" aria-label="Zoom in"><ZoomIn size={17} /></button>
-          <button type="button" className="wp-icon-btn" aria-label="Zoom out"><ZoomOut size={17} /></button>
+          <button type="button" className="bp3d-icon-btn" aria-label="Reset view"><RefreshCw size={17} /></button>
+          <button type="button" className="bp3d-icon-btn" aria-label="Zoom in"><ZoomIn size={17} /></button>
+          <button type="button" className="bp3d-icon-btn" aria-label="Zoom out"><ZoomOut size={17} /></button>
         </div>
-        <button type="button" className="wp-icon-btn" aria-label="Fullscreen"><Expand size={17} /></button>
+        <button type="button" className="bp3d-icon-btn" aria-label="Fullscreen"><Expand size={17} /></button>
       </div>
     </div>
   )
@@ -49,11 +49,11 @@ function LivePreviewCard() {
 
 function PublishBox() {
   return (
-    <div className="wp-publish">
-      <button type="button" className="wp-btn wp-btn--primary">
+    <div className="bp3d-publish">
+      <button type="button" className="bp3d-btn bp3d-btn--primary">
         <Send size={17} /> Publish
       </button>
-      <button type="button" className="wp-btn wp-btn--ghost">Save Draft</button>
+      <button type="button" className="bp3d-btn bp3d-btn--ghost">Save Draft</button>
     </div>
   )
 }
@@ -64,113 +64,113 @@ function ModelTab() {
 
   return (
     <>
-      <div className="wp-card">
-        <div className="wp-card__head">
-          <span className="wp-card__head-icon"><Layers size={20} /></span>
+      <div className="bp3d-card">
+        <div className="bp3d-card__head">
+          <span className="bp3d-card__head-icon"><Layers size={20} /></span>
           <div>
-            <h4 className="wp-card__title">Viewer Mode</h4>
-            <p className="wp-card__desc">Choose between Lite and Advanced viewer modes.</p>
+            <h4 className="bp3d-card__title">Viewer Mode</h4>
+            <p className="bp3d-card__desc">Choose between Lite and Advanced viewer modes.</p>
           </div>
         </div>
 
-        <div className="wp-mode-grid">
+        <div className="bp3d-mode-grid">
           <button
             type="button"
-            className={`wp-mode${mode === 'lite' ? ' wp-mode--on' : ''}`}
+            className={`bp3d-mode${mode === 'lite' ? ' bp3d-mode--on' : ''}`}
             onClick={() => setMode('lite')}
           >
-            <span className="wp-mode__icon"><ZapIcon size={18} /></span>
-            <span className="wp-mode__body">
-              <span className="wp-mode__name">
-                Lite <span className="wp-mode__tag">Recommended</span>
+            <span className="bp3d-mode__icon"><ZapIcon size={18} /></span>
+            <span className="bp3d-mode__body">
+              <span className="bp3d-mode__name">
+                Lite <span className="bp3d-mode__tag">Recommended</span>
               </span>
-              <span className="wp-mode__perks">
+              <span className="bp3d-mode__perks">
                 <span>✓ Faster loading</span>
                 <span>✓ Smaller size</span>
               </span>
             </span>
-            <span className="wp-mode__radio" />
+            <span className="bp3d-mode__radio" />
           </button>
 
           <button
             type="button"
-            className={`wp-mode wp-mode--plain${mode === 'advanced' ? ' wp-mode--on' : ''}`}
+            className={`bp3d-mode bp3d-mode--plain${mode === 'advanced' ? ' bp3d-mode--on' : ''}`}
             onClick={() => setMode('advanced')}
           >
-            <span className="wp-mode__icon"><SlidersVertical size={18} /></span>
-            <span className="wp-mode__body">
-              <span className="wp-mode__name">Advanced</span>
-              <span className="wp-mode__perks">
+            <span className="bp3d-mode__icon"><SlidersVertical size={18} /></span>
+            <span className="bp3d-mode__body">
+              <span className="bp3d-mode__name">Advanced</span>
+              <span className="bp3d-mode__perks">
                 <span>✓ More features</span>
                 <span>✓ Customization</span>
               </span>
             </span>
-            <span className="wp-mode__radio" />
+            <span className="bp3d-mode__radio" />
           </button>
         </div>
       </div>
 
-      <div className="wp-card">
-        <div className="wp-card__head">
-          <span className="wp-card__head-icon"><Link2 size={20} /></span>
+      <div className="bp3d-card">
+        <div className="bp3d-card__head">
+          <span className="bp3d-card__head-icon"><Link2 size={20} /></span>
           <div>
-            <h4 className="wp-card__title">3D Source</h4>
-            <p className="wp-card__desc">Select the source URL or upload a 3D model file.</p>
+            <h4 className="bp3d-card__title">3D Source</h4>
+            <p className="bp3d-card__desc">Select the source URL or upload a 3D model file.</p>
           </div>
         </div>
-        <div className="wp-field-row">
-          <input className="wp-input" placeholder="https://example.com/model.glb" />
-          <button type="button" className="wp-btn wp-btn--soft">
+        <div className="bp3d-field-row">
+          <input className="bp3d-input" placeholder="https://example.com/model.glb" />
+          <button type="button" className="bp3d-btn bp3d-btn--soft">
             <UploadCloud size={17} /> Upload Source
           </button>
         </div>
-        <p className="wp-hint">
+        <p className="bp3d-hint">
           Or upload a file from your media library. You can also use a direct URL to your 3D model.
         </p>
       </div>
 
-      <div className="wp-card">
-        <div className="wp-card__head">
-          <span className="wp-card__head-icon"><Terminal size={20} /></span>
+      <div className="bp3d-card">
+        <div className="bp3d-card__head">
+          <span className="bp3d-card__head-icon"><Terminal size={20} /></span>
           <div>
-            <h4 className="wp-card__title">Decoder</h4>
-            <p className="wp-card__desc">Choose a decoder to decode the 3D model.</p>
+            <h4 className="bp3d-card__title">Decoder</h4>
+            <p className="bp3d-card__desc">Choose a decoder to decode the 3D model.</p>
           </div>
         </div>
         <div style={{ marginTop: 20 }}>
-          <select className="wp-select" defaultValue="none">
+          <select className="bp3d-select" defaultValue="none">
             <option value="none">None</option>
             <option value="draco">Draco</option>
             <option value="ktx">KTX</option>
           </select>
         </div>
-        <p className="wp-hint" style={{ color: 'var(--wp-muted)' }}>
+        <p className="bp3d-hint" style={{ color: 'var(--bp3d-muted)' }}>
           Select a decoder if your 3D model requires one (e.g., Draco, KTX).
         </p>
       </div>
 
-      <div className="wp-card">
-        <div className="wp-card__head">
-          <span className="wp-card__head-icon"><ImageIcon size={20} /></span>
+      <div className="bp3d-card">
+        <div className="bp3d-card__head">
+          <span className="bp3d-card__head-icon"><ImageIcon size={20} /></span>
           <div>
-            <h4 className="wp-card__title">Poster Image</h4>
-            <p className="wp-card__desc">Display a poster image until the model is loaded.</p>
+            <h4 className="bp3d-card__title">Poster Image</h4>
+            <p className="bp3d-card__desc">Display a poster image until the model is loaded.</p>
           </div>
         </div>
-        <div className="wp-poster">
-          <span className="wp-poster__thumb"><ImageIcon size={20} /></span>
-          <div className="wp-poster__main">
-            <p className="wp-poster__name">No image selected</p>
-            <p className="wp-poster__meta">Recommended size: 800 × 600px (JPG, PNG)</p>
+        <div className="bp3d-poster">
+          <span className="bp3d-poster__thumb"><ImageIcon size={20} /></span>
+          <div className="bp3d-poster__main">
+            <p className="bp3d-poster__name">No image selected</p>
+            <p className="bp3d-poster__meta">Recommended size: 800 × 600px (JPG, PNG)</p>
           </div>
-          <button type="button" className="wp-btn wp-btn--primary" style={{ height: 44 }}>
+          <button type="button" className="bp3d-btn bp3d-btn--primary" style={{ height: 44 }}>
             <UploadCloud size={17} /> Upload Poster
           </button>
         </div>
       </div>
 
       <div style={{ marginTop: 28 }}>
-        <button type="button" className="wp-btn wp-btn--ghost">Reset to Default</button>
+        <button type="button" className="bp3d-btn bp3d-btn--ghost">Reset to Default</button>
       </div>
     </>
   )
@@ -198,8 +198,8 @@ function SettingsTab() {
 
   return (
     <>
-      <div className="wp-card wp-card--rows">
-        <h3 className="wp-section-title" style={{ margin: '8px 0 23px' }}>3D Viewer Settings</h3>
+      <div className="bp3d-card bp3d-card--rows">
+        <h3 className="bp3d-section-title" style={{ margin: '8px 0 23px' }}>3D Viewer Settings</h3>
 
         {VIEWER_SETTINGS.map(({ id, Icon, title, desc }) => (
           <SettingRow key={id} Icon={Icon} title={title} desc={desc}>
@@ -233,7 +233,7 @@ function SettingsTab() {
       </div>
 
       <div style={{ marginTop: 24 }}>
-        <button type="button" className="wp-btn wp-btn--ghost">Reset to Default</button>
+        <button type="button" className="bp3d-btn bp3d-btn--ghost">Reset to Default</button>
       </div>
     </>
   )
@@ -245,20 +245,20 @@ function StyleTab() {
 
   return (
     <>
-      <div className="wp-card wp-card--rows">
-        <h3 className="wp-section-title" style={{ margin: '8px 0 23px' }}>3D Viewer Settings</h3>
+      <div className="bp3d-card bp3d-card--rows">
+        <h3 className="bp3d-section-title" style={{ margin: '8px 0 23px' }}>3D Viewer Settings</h3>
 
         <SettingRow
           Icon={Move}
           title="Width"
           desc="Set the width of the 3D viewer. You can use values like %, px, or vw for responsive layouts."
         >
-          <div className="wp-dim">
-            <input className="wp-input" defaultValue="100" />
-            <select className="wp-select" defaultValue="%">
+          <div className="bp3d-dim">
+            <input className="bp3d-input" defaultValue="100" />
+            <select className="bp3d-select" defaultValue="%">
               <option>%</option><option>px</option><option>vw</option>
             </select>
-            <button type="button" className="wp-dim__link" aria-label="Link width and height">
+            <button type="button" className="bp3d-dim__link" aria-label="Link width and height">
               <Link2 size={16} />
             </button>
           </div>
@@ -269,12 +269,12 @@ function StyleTab() {
           title="Height"
           desc="Set the height of the 3D viewer. Adjust this to control how much vertical space the model occupies."
         >
-          <div className="wp-dim">
-            <input className="wp-input" defaultValue="320" />
-            <select className="wp-select" defaultValue="px">
+          <div className="bp3d-dim">
+            <input className="bp3d-input" defaultValue="320" />
+            <select className="bp3d-select" defaultValue="px">
               <option>px</option><option>%</option><option>vh</option>
             </select>
-            <button type="button" className="wp-dim__link" aria-label="Link width and height">
+            <button type="button" className="bp3d-dim__link" aria-label="Link width and height">
               <Link2 size={16} />
             </button>
           </div>
@@ -293,15 +293,15 @@ function StyleTab() {
           title="Background Color"
           desc="Set background color for 3d model. If you don't need just leave blank. Default: 'transparent color'"
         >
-          <button type="button" className="wp-colorpick">
-            <span className="wp-colorpick__swatch" /> Select Color
+          <button type="button" className="bp3d-colorpick">
+            <span className="bp3d-colorpick__swatch" /> Select Color
           </button>
         </SettingRow>
       </div>
 
       <div style={{ display: 'flex', gap: 14, marginTop: 34 }}>
-        <button type="button" className="wp-btn wp-btn--ghost">Reset to Default</button>
-        <button type="button" className="wp-btn wp-btn--save">Save Change</button>
+        <button type="button" className="bp3d-btn bp3d-btn--ghost">Reset to Default</button>
+        <button type="button" className="bp3d-btn bp3d-btn--save">Save Change</button>
       </div>
     </>
   )
@@ -324,19 +324,19 @@ function PreviewTab() {
   ]
 
   return (
-    <div className="wp-stagecard">
-      <div className="wp-stagecard__head">
-        <span className="wp-stagecard__left">
-          <span className="wp-dot" />
+    <div className="bp3d-stagecard">
+      <div className="bp3d-stagecard__head">
+        <span className="bp3d-stagecard__left">
+          <span className="bp3d-dot" />
           Live Preview
-          <span className="wp-badge-ready">Ready</span>
+          <span className="bp3d-badge-ready">Ready</span>
         </span>
-        <div className="wp-devices">
+        <div className="bp3d-devices">
           {devices.map(({ id, Icon }) => (
             <button
               key={id}
               type="button"
-              className="wp-device"
+              className="bp3d-device"
               aria-pressed={device === id}
               onClick={() => setDevice(id)}
             >
@@ -346,47 +346,47 @@ function PreviewTab() {
         </div>
       </div>
 
-      <div className="wp-stagecard__body">
-        <div className="wp-stagecard__stage">
+      <div className="bp3d-stagecard__body">
+        <div className="bp3d-stagecard__stage">
           <img src={PREVIEW_SRC} alt="Live preview of the 3D model" />
 
-          <button type="button" className="wp-stage-corner" aria-label="Toggle grid">
+          <button type="button" className="bp3d-stage-corner" aria-label="Toggle grid">
             <LayoutGridIcon size={15} />
           </button>
 
-          <div className="wp-stage-tools">
+          <div className="bp3d-stage-tools">
             <button type="button" aria-label="Materials"><Palette size={15} /></button>
             <button type="button" aria-label="Auto-rotate"><RefreshCw size={15} /></button>
             <button type="button" aria-label="Grid"><LayoutGridIcon size={15} /></button>
           </div>
 
-          <div className="wp-variants">
-            <button type="button" className="wp-variants__nav" aria-label="Previous variant">‹</button>
-            <span className="wp-variants__deg">360°</span>
+          <div className="bp3d-variants">
+            <button type="button" className="bp3d-variants__nav" aria-label="Previous variant">‹</button>
+            <span className="bp3d-variants__deg">360°</span>
             {variants.map((v) => (
               <button
                 key={v.id}
                 type="button"
-                className="wp-variant"
+                className="bp3d-variant"
                 aria-pressed={variant === v.id}
                 aria-label={v.label}
                 onClick={() => setVariant(v.id)}
               >
-                {v.id === 'colour' ? <span className="wp-variant__dot" /> : v.glyph}
+                {v.id === 'colour' ? <span className="bp3d-variant__dot" /> : v.glyph}
               </button>
             ))}
-            <button type="button" className="wp-variants__nav" aria-label="Next variant">›</button>
+            <button type="button" className="bp3d-variants__nav" aria-label="Next variant">›</button>
           </div>
         </div>
-        <p className="wp-stagecard__note">
+        <p className="bp3d-stagecard__note">
           Your 3D model is ready to preview. Make sure all settings are configured correctly
           for the best experience.
         </p>
       </div>
 
-      <div className="wp-stagecard__actions">
-        <button type="button" className="wp-btn wp-btn--ghost">Reset to Default</button>
-        <button type="button" className="wp-btn wp-btn--save">Save Change</button>
+      <div className="bp3d-stagecard__actions">
+        <button type="button" className="bp3d-btn bp3d-btn--ghost">Reset to Default</button>
+        <button type="button" className="bp3d-btn bp3d-btn--save">Save Change</button>
       </div>
     </div>
   )
@@ -400,23 +400,23 @@ export default function AddNew({ initialTab }) {
 
   return (
     <AdminLayout>
-      <h1 className="wp-title">Add New</h1>
+      <h1 className="bp3d-title">Add New</h1>
 
-      <input className="wp-title-input" placeholder="Add title" />
+      <input className="bp3d-title-input" placeholder="Add title" />
 
-      <div className="wp-shortcode">
-        <span className="wp-shortcode__hint">
+      <div className="bp3d-shortcode">
+        <span className="bp3d-shortcode__hint">
           Copy and paste this shortcode into your posts, pages and widget
         </span>
-        <button type="button" className="wp-shortcode__chip">
+        <button type="button" className="bp3d-shortcode__chip">
           [3d_viewer id='38'] <Copy size={16} />
         </button>
       </div>
 
-      <div className="wp-panel" style={{ marginTop: 21 }}>
+      <div className="bp3d-panel" style={{ marginTop: 21 }}>
         <TabStrip fixed tabs={TABS} value={tab} onChange={setTab} />
 
-        <div className="wp-editor">
+        <div className="bp3d-editor">
           <div>
             {tab === 'model' && <ModelTab />}
             {tab === 'settings' && <SettingsTab />}
@@ -424,17 +424,17 @@ export default function AddNew({ initialTab }) {
             {tab === 'preview' && <PreviewTab />}
           </div>
 
-          <aside className="wp-side">
+          <aside className="bp3d-side">
             {tab === 'preview' ? (
               <>
                 <PublishBox />
                 <LivePreviewCard />
-                <h3 className="wp-side__heading">Active Insights &amp; Promotion</h3>
+                <h3 className="bp3d-side__heading">Active Insights &amp; Promotion</h3>
               </>
             ) : (
               <>
                 <LivePreviewCard />
-                <h3 className="wp-side__heading">Active Insights &amp; Promotion</h3>
+                <h3 className="bp3d-side__heading">Active Insights &amp; Promotion</h3>
                 <PublishBox />
               </>
             )}

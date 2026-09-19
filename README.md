@@ -27,6 +27,7 @@ into the plugin.
 
 ```
 src/
+  styles/base.css         .bp3d-app scope: resets + wp-admin hardening
   styles/tokens.css       onboarding design tokens
   styles/admin.css        admin design tokens + admin components
   styles/onboarding.css   onboarding layout + components
@@ -35,6 +36,74 @@ src/
   admin/                  AdminLayout, TabStrip, SettingRow, controls, icons
   pages/                  AddNew, Settings
 ```
+
+## Naming — everything is `bp3d`
+
+This UI is going to render inside wp-admin, next to WordPress core's own CSS and
+whatever every other active plugin enqueues, so nothing it defines may be a name
+anyone else could plausibly pick. One prefix, no exceptions:
+
+| | pattern | examples |
+| --- | --- | --- |
+| admin classes | `bp3d-*` | `.bp3d-panel`, `.bp3d-row__title`, `.bp3d-btn--save` |
+| onboarding classes | `bp3d-ob-*` | `.bp3d-ob-card`, `.bp3d-ob-stepper__dot` |
+| admin tokens | `--bp3d-*` | `--bp3d-primary`, `--bp3d-row-desc` |
+| onboarding tokens | `--bp3d-ob-*` | `--bp3d-ob-card-w`, `--bp3d-ob-step-active` |
+| shared tokens | `--bp3d-*` | `--bp3d-font`, `--bp3d-viewport` |
+| mount node | `#bp3d-root` | |
+
+BEM modifiers still use `--`, so `.bp3d-btn--primary` is the *primary* modifier
+of `.bp3d-btn`, not a custom property. The two never collide because custom
+properties only ever appear after `--bp3d`.
+
+These replace the previous `wp-*` / `ob-*` names. `wp-` in particular was a
+collision waiting to happen: WordPress core already ships `.wp-editor-container`,
+`.wp-core-ui`, `.wp-badge` and dozens more, and this UI had its own `.wp-editor`.
+
+## Scoping — `.bp3d-app`
+
+`App` renders a single `<div class="bp3d-app">` around everything, and that class
+is the whole contract with wp-admin. It works in both directions:
+
+- **Nothing leaks out.** No stylesheet here may select `html`, `body` or a bare
+  element outside `.bp3d-app`. The design tokens live on `.bp3d-app`, not
+  `:root`, so they are not visible to the rest of the admin page either.
+- **Nothing leaks in.** wp-admin styles bare elements globally — `p`,
+  `h1`–`h6`, `ul`, `select`, `input[type=…]`. `base.css` restates the browser
+  defaults this UI was measured against for each of them.
+
+The specificity is deliberate and the ordering matters:
+
+| selector | specificity | beats | loses to |
+| --- | --- | --- | --- |
+| `.bp3d-app :where(p)` | `(0,1,0)` | wp-admin's `p` `(0,0,1)` | `.bp3d-row__desc` `(0,1,0)`, on source order |
+| `.bp3d-app input` | `(0,1,1)` | wp-admin's `input[type=text]` `(0,1,1)` | — it outranks component classes |
+
+So `base.css` **must** be imported before `onboarding.css` and `admin.css` — it
+relies on losing the tie to component rules. And the `(0,1,1)` block at the
+bottom of `base.css` may only ever name properties no component sets, because
+nothing in this UI can override it.
+
+Plain `:where(.bp3d-app) :where(p)` does *not* work here: at zero specificity
+wp-admin's `p { line-height: 1.5 }` wins, which silently reflows every
+description row in the Settings screens.
+
+`.bp3d-app` also carries `--bp3d-viewport`, which the two full-height screens use
+instead of `100vh`. Under `body.wp-admin` it drops to `calc(100vh - 32px)` for
+the toolbar, and the wrapper takes negative margins to bleed back out of
+`#wpcontent`'s gutter and `#wpbody-content`'s footer padding.
+
+`global.css` is the standalone harness only — `html`/`body` for `npm run dev`.
+It is not part of what gets ported.
+
+### Still to do when porting
+
+- `AdminLayout` renders mock WordPress chrome (screen options, admin notice,
+  footer). WordPress supplies all of that; drop it.
+- Image `src`s are absolute `/assets/…` paths. They need to come from
+  `plugins_url()`, passed in via `wp_localize_script`.
+- Inter is loaded from Google Fonts in `index.html`; that becomes a
+  `wp_enqueue_style` call, or a bundled font.
 
 ## How the values were derived
 
@@ -105,17 +174,23 @@ the blob is hand-placed differently in each onboarding frame.
 Reproduce with the scripts used to build this table — render each route, then run
 the tolerant diff against `assets/images/figma/`.
 
+The `bp3d` rename and the `.bp3d-app` scoping were checked the same way, against
+the build that preceded them rather than against Figma. All eleven routes come
+out **byte-identical** standalone, and identical again under the same tolerant
+diff when rendered inside a page carrying wp-admin's global stylesheet rules,
+body classes and `#wpwrap` / `#wpcontent` / `#wpbody-content` nesting.
+
 ## Design inconsistencies found in the Figma file
 
 Places where the exported frames disagree with each other. Each was resolved toward
 the more developed frame and is a one-line change if you want it the other way.
 
 1. **Onboarding card width.** Screens 2 and 3 export a 740px card; screen 1 exports
-   686px. Normalised to 740 via `--card-w` so the card does not resize between steps.
+   686px. Normalised to 740 via `--bp3d-ob-card-w` so the card does not resize between steps.
    This is why screen 1 below the hero no longer lines up with its own export — the
    hero is `width: 100%`, so a wider card gives a proportionally taller hero.
 2. **Onboarding blue.** Screens 2 and 3 use `#3B52F6`; screen 1 uses `#1B5CF0`.
-   Standardised on `#3B52F6` (`--primary`); `--primary-alt` holds screen 1's value.
+   Standardised on `#3B52F6` (`--bp3d-ob-primary`); `--bp3d-ob-primary-alt` holds screen 1's value.
 3. **Admin blues.** Two are in use and both were kept, because each is consistent
    across frames: `#1B5CF0` for tabs / Enable / Publish / the shortcode chip, and
    `#3B52F6` for Save Changes and Save Change.
@@ -131,7 +206,7 @@ the more developed frame and is a one-line change if you want it the other way.
    button. Both are reproduced as exported, since both read as deliberate.
 7. **Add New panel height.** Frames 2–4 hold the panel at 1177px even where the tab
    content is far shorter; frame 1 is 964px. Implemented content-sized with a
-   `min-height` on `.wp-editor`, so a short tab cannot collapse the card, but Style
+   `min-height` on `.bp3d-editor`, so a short tab cannot collapse the card, but Style
    and Preview end ~190px above their export.
 8. **Settings panel height.** All four settings frames hold the panel at exactly
    963px, so that one *is* implemented as a `min-height`.
@@ -139,11 +214,11 @@ the more developed frame and is a one-line change if you want it the other way.
    the active tab while displaying selector content; implemented with the correct
    tab active, which is the single largest remaining diff on that screen (0.88 %).
    Its rows are also spaced at a 100px pitch against 74px on every other settings
-   tab. Matched, via `.wp-rows--loose` — delete that one class to make the tab
+   tab. Matched, via `.bp3d-rows--loose` — delete that one class to make the tab
    consistent with the rest of the page.
 10. **Setting row pitch.** The Add New panel exports its rows at a 72px pitch and the
-    Settings page at 74px, so `.wp-editor .wp-row` carries a slightly tighter padding
-    than `.wp-row`. Both now match their own export.
+    Settings page at 74px, so `.bp3d-editor .bp3d-row` carries a slightly tighter padding
+    than `.bp3d-row`. Both now match their own export.
 11. **Action-bar button height.** Model (5) exports the Save/Reset buttons at 44px
     tall, Model (6) and (7) at 40px. Implemented at 40px (the majority), so the
     General tab's action bar sits 4px shorter than its own export.
@@ -152,9 +227,12 @@ the more developed frame and is a one-line change if you want it the other way.
     Implemented at 20px line-height, so the Style tab's four rows drift ~2px each.
 13. **Card padding.** The Model tab's cards inset their content by 19px; the
     Settings/Style cards inset by 29px on the left and 13px on the right. Carried as
-    a `.wp-card--rows` modifier rather than normalised, since both are visible.
+    a `.bp3d-card--rows` modifier rather than normalised, since both are visible.
 14. **Decorative blob.** `onboarding-bg.png` is placed at a slightly different size
-    and offset in each onboarding frame. Anchored bottom-right using screen 3's.
+    and offset in each onboarding frame. Anchored bottom-right with its visible edge
+    flush with the page bottom, as screen 1 exports it (screens 2 and 3 leave a
+    25px gap). The PNG has ~67px of transparent padding below the shape, hence
+    `bottom: -67px`.
 
 ## Assets
 

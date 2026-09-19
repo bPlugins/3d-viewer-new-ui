@@ -69,31 +69,31 @@ export default function StepCustomize({ onBack, onNext, onExit, onUpgrade }) {
     <>
       <Stepper current={2} onExit={onExit} />
 
-      <p className="ob-eyebrow ob-eyebrow--muted">2nd step</p>
-      <h2 className="ob-title">What's included with 3D Viewer?</h2>
-      <p className="ob-lede">
+      <p className="bp3d-ob-eyebrow bp3d-ob-eyebrow--muted">2nd step</p>
+      <h2 className="bp3d-ob-title">What's included with 3D Viewer?</h2>
+      <p className="bp3d-ob-lede">
         Everything you need to create interactive 3D experiences on your WordPress
         site. Choose the features you want to enable. Pro unlocks the rest whenever
         you need it.
       </p>
 
-      <div className="ob-features">
+      <div className="bp3d-ob-features">
         {FEATURES.map(({ Icon, tone, title, body, tier }) => (
-          <article className="ob-feature" key={title}>
-            <span className={`ob-feature__icon ob-feature__icon--${tone}`}>
+          <article className="bp3d-ob-feature" key={title}>
+            <span className={`bp3d-ob-feature__icon bp3d-ob-feature__icon--${tone}`}>
               <Icon size={20} />
             </span>
             <div>
-              <div className="ob-feature__head">
-                <h4 className="ob-feature__title">{title}</h4>
+              <div className="bp3d-ob-feature__head">
+                <h4 className="bp3d-ob-feature__title">{title}</h4>
                 {tier === 'included' && (
-                  <span className="ob-check" aria-label="Included">
+                  <span className="bp3d-ob-check" aria-label="Included">
                     <CheckIcon />
                   </span>
                 )}
               </div>
-              <p className="ob-feature__body">{body}</p>
-              <span className={`ob-badge ob-badge--${tier}`}>
+              <p className="bp3d-ob-feature__body">{body}</p>
+              <span className={`bp3d-ob-badge bp3d-ob-badge--${tier}`}>
                 {tier === 'included' ? 'Included' : 'Pro'}
               </span>
             </div>
@@ -101,19 +101,19 @@ export default function StepCustomize({ onBack, onNext, onExit, onUpgrade }) {
         ))}
       </div>
 
-      <hr className="ob-divider" style={{ marginTop: 37 }} />
+      <hr className="bp3d-ob-divider" style={{ marginTop: 37 }} />
 
-      <div className="ob-footer">
-        <button type="button" className="ob-btn ob-btn--ghost" onClick={onBack}>
+      <div className="bp3d-ob-footer">
+        <button type="button" className="bp3d-ob-btn bp3d-ob-btn--ghost" onClick={onBack}>
           <ChevronLeftIcon />
           Back
         </button>
 
-        <div className="ob-footer__end">
-          <button type="button" className="ob-btn ob-btn--link" onClick={onUpgrade}>
+        <div className="bp3d-ob-footer__end">
+          <button type="button" className="bp3d-ob-btn bp3d-ob-btn--link" onClick={onUpgrade}>
             Upgrade to Pro
           </button>
-          <button type="button" className="ob-btn ob-btn--primary" onClick={onNext}>
+          <button type="button" className="bp3d-ob-btn bp3d-ob-btn--primary" onClick={onNext}>
             Add Your First 3D Model
             <ArrowRightIcon />
           </button>
