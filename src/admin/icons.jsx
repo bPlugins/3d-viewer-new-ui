@@ -73,6 +73,15 @@ export const ZoomOut = (p) => (
 export const Expand = (p) => (
   <S {...p}><path d="m15 15 6 6" /><path d="m15 9 6-6" /><path d="M21 16v5h-5" /><path d="M21 8V3h-5" /><path d="M3 16v5h5" /><path d="m3 21 6-6" /><path d="M3 8V3h5" /><path d="M9 9 3 3" /></S>
 )
+/* Two-corner variant — the Live Preview card's "Fullscreen" button in Figma
+   uses this one (arrows top-right + bottom-left only), not the four-corner
+   `Expand` above. */
+export const Maximize2 = (p) => (
+  <S {...p}>
+    <polyline points="15 3 21 3 21 9" /><polyline points="9 21 3 21 3 15" />
+    <line x1="21" y1="3" x2="14" y2="10" /><line x1="3" y1="21" x2="10" y2="14" />
+  </S>
+)
 export const Send = (p) => (
   <S {...p}><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /><path d="m21.854 2.147-10.94 10.939" /></S>
 )

@@ -169,6 +169,7 @@ The two styles `information.md` *does* specify both check out against the export
 | toggle | 41 × 24, on `#10B981`, off `#FDA4AF`, destructive `#EF4444` |
 | buttons | Publish/tabs `#1B5CF0`, Save Changes `#3B52F6`, Reset `#E5FFF1`/`#00A44C`, Reset All `#FCDDDD`/`#EF4444` |
 | MIME tile | 178 × 50, 14px gutter, checked fill `#F4F6F8`, check `#00BF7C` |
+| Live Preview card | header 47 · 12 · stage 337 × 193 · 11 · controls 56; divider at each block edge, 15px side inset, 32px control chips `#F9FAFB` 12px apart (header button has no chip) |
 
 ## Fidelity
 
@@ -226,9 +227,12 @@ the more developed frame and is a one-line change if you want it the other way.
    the export exactly.
 5. **Feature card widths.** In onboarding screen 2 the last card ("And much more")
    exports 9px wider than the cards above it. Implemented at a consistent width.
-6. **Onboarding footer layout.** Screen 2 groups "Upgrade to Pro" beside the primary
-   button; screen 3 spreads "Go to Dashboard" evenly between Back and the primary
-   button. Both are reproduced as exported, since both read as deliberate.
+6. **Onboarding footer layout.** Figma exports screen 2 with "Upgrade to Pro"
+   grouped beside the primary button, and screen 3 with "Go to Dashboard" spread
+   evenly between Back and the primary button — via `.bp3d-ob-footer__end`, only
+   screen 2 wrapped its link with the button. Unified on screen 2's grouping:
+   screen 3's `Go to Dashboard` now sits in the same wrapper, next to `Add Your
+   First 3D Model`, rather than centered in the row.
 7. **Add New panel height.** Frames 2–4 hold the panel at 1177px even where the tab
    content is far shorter; frame 1 is 964px. Implemented content-sized with a
    `min-height` on `.bp3d-editor`, so a short tab cannot collapse the card, but Style

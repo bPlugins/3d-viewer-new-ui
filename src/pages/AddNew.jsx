@@ -9,7 +9,7 @@ import { LayoutGridIcon } from '../components/icons'
 import {
   Palette,
   Gear, Pencil, Eye, Layers, Link2, Terminal, ImageIcon, ExternalLink,
-  RefreshCw, ZoomIn, ZoomOut, Expand, Send, UploadCloud, Move, Maximize,
+  RefreshCw, ZoomIn, ZoomOut, Maximize2, Send, UploadCloud, Move, Maximize,
   Download, Loader, SlidersVertical, Sun, CloudDrizzle, Copy, Monitor, Tablet,
 } from '../admin/icons'
 
@@ -42,7 +42,7 @@ function LivePreviewCard() {
           <button type="button" className="bp3d-icon-btn" aria-label="Zoom in"><ZoomIn size={17} /></button>
           <button type="button" className="bp3d-icon-btn" aria-label="Zoom out"><ZoomOut size={17} /></button>
         </div>
-        <button type="button" className="bp3d-icon-btn" aria-label="Fullscreen"><Expand size={17} /></button>
+        <button type="button" className="bp3d-icon-btn" aria-label="Fullscreen"><Maximize2 size={17} /></button>
       </div>
     </div>
   )

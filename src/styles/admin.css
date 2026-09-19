@@ -941,7 +941,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 15px;
+  margin: 0 15px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--bp3d-border);
 }
 
 .bp3d-preview__title {
@@ -958,7 +960,7 @@
 }
 
 .bp3d-preview__stage {
-  margin: 0 15px;
+  margin: 12px 15px 11px;
   aspect-ratio: 337 / 193;
   border-radius: 8px;
   overflow: hidden;
@@ -975,13 +977,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18.5px 15px;
+  margin: 0 15px;
+  padding: 12px 0 11px;
+  border-top: 1px solid var(--bp3d-border);
   color: var(--bp3d-row-desc);
 }
 
 .bp3d-preview__controls > div {
   display: flex;
-  gap: 14px;
+  gap: 12px;
+}
+
+.bp3d-preview__controls .bp3d-icon-btn {
+  width: 32px;
+  height: 32px;
+  background: #f9fafb;
 }
 
 .bp3d-icon-btn {

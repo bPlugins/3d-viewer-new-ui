@@ -81,14 +81,15 @@ export default function StepPublish({ value, onChange, onBack, onNext, onDashboa
           &lt; Back
         </button>
 
-        <button type="button" className="bp3d-ob-btn bp3d-ob-btn--link" onClick={onDashboard}>
-          Go to Dashboard
-        </button>
-
-        <button type="button" className="bp3d-ob-btn bp3d-ob-btn--primary" onClick={onNext}>
-          Add Your First 3D Model
-          <ArrowRightIcon />
-        </button>
+        <div className="bp3d-ob-footer__end">
+          <button type="button" className="bp3d-ob-btn bp3d-ob-btn--link" onClick={onDashboard}>
+            Go to Dashboard
+          </button>
+          <button type="button" className="bp3d-ob-btn bp3d-ob-btn--primary" onClick={onNext}>
+            Add Your First 3D Model
+            <ArrowRightIcon />
+          </button>
+        </div>
       </div>
     </>
   )
