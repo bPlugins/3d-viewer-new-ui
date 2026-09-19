@@ -137,7 +137,7 @@ export const XIcon = ({ size = 10 }) => (
    X in one flat colour, no filled badge behind it) — not a filled circle
    with a separate X icon on top. */
 export const CircleXIcon = ({ size = 21 }) => (
-  <Svg size={size} stroke={1.75}>
+  <Svg size={size} stroke={2}>
     <circle cx="12" cy="12" r="10" />
     <path d="m15 9-6 6" />
     <path d="m9 9 6 6" />

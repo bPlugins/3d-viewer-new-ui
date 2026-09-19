@@ -56,9 +56,11 @@ src/
   styles/tokens.css       onboarding design tokens
   styles/admin.css        admin design tokens + admin components
   styles/onboarding.css   onboarding layout + components
+  styles/wp-chrome.css    mock wp-admin chrome (preview only)
   components/             OnboardingLayout, Stepper, Highlights, icons
   screens/                StepModel (1), StepCustomize (2), StepPublish (3)
   admin/                  AdminLayout, TabStrip, SettingRow, controls, icons
+  admin/WpChrome.jsx      mock admin bar + admin menu (preview only)
   pages/                  AddNew, Settings
 ```
 
@@ -121,10 +123,44 @@ the toolbar, and the wrapper takes negative margins to bleed back out of
 `global.css` is the standalone harness only — `html`/`body` for `npm run dev`.
 It is not part of what gets ported.
 
+### Mock wp-admin chrome
+
+Every screen renders inside a fake WordPress shell — admin bar across the top,
+admin menu down the left — so the preview reads the way the plugin will in place.
+`WpChrome.jsx` plus `wp-chrome.css`, using WordPress's own metrics and "fresh"
+scheme colours: 32px bar, 160px menu folding to 36px under 960px, `#1D2327`
+chrome, `#2C3338` hover/submenu, `#2271B1` current, `#72AEE6` links. Class names
+mirror WordPress's (`#wpadminbar` → `.bp3d-adminbar`, `#adminmenu` →
+`.bp3d-adminmenu`, `#wpcontent` → `.bp3d-wpcontent`) so the swap is obvious.
+
+The 3D Viewer submenu carries the three live routes — **Add New**, **Settings**
+and **Onboarding** — and highlights whichever one matches the current hash.
+`All 3D Viewers`, `Presets` and `Help & Demos` are inert placeholders, there to
+make the menu read like a real plugin's.
+
+The menu icons in `admin/wpIcons.jsx` are hand-drawn approximations of Dashicons
+in the same visual language, not copies of the Dashicons paths.
+
+Two things follow from the chrome:
+
+- **`?chrome=0` turns it off.** The fidelity table below was measured against
+  exports that only ever showed the content column, so the diffs have to be run
+  without the shell. `http://localhost:5173/?chrome=0#/add-new/model`. Verified
+  to render pixel-identically to the build that preceded the chrome.
+- **View at ≥1440px** to see the screens at their designed width. The content
+  well is the window minus the 160px menu, and the layout was drawn for a 1280px
+  column — so 1440 gives it exactly that, where 1280 squeezes it to 1120.
+
+The shell re-points `--bp3d-viewport` at `calc(100vh - 32px)`, which is the whole
+reason both full-height screens (`.bp3d-admin`, `.bp3d-ob-page`) fit the well
+without either of them knowing the chrome exists.
+
 ### Still to do when porting
 
 - `AdminLayout` renders mock WordPress chrome (screen options, admin notice,
-  footer). WordPress supplies all of that; drop it.
+  footer), and `WpChrome` wraps the screens in a fake admin bar and menu.
+  WordPress supplies all of that; drop both. The plugin only registers its menu
+  entry and renders into `#wpbody-content`.
 - Image `src`s are absolute `/assets/…` paths. They need to come from
   `plugins_url()`, passed in via `wp_localize_script`.
 - Inter is loaded from Google Fonts in `index.html`; that becomes a

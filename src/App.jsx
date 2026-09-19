@@ -5,9 +5,11 @@ import StepCustomize from './screens/StepCustomize'
 import StepPublish from './screens/StepPublish'
 import AddNew from './pages/AddNew'
 import SettingsPage from './pages/Settings'
+import WpChrome from './admin/WpChrome'
 import './styles/base.css'
 import './styles/onboarding.css'
 import './styles/admin.css'
+import './styles/wp-chrome.css'
 
 /*
  * Hash routing, kept deliberately tiny — the plugin will own real routing.
@@ -38,10 +40,29 @@ function Onboarding({ step: initial }) {
   )
 }
 
+/*
+ * Every screen renders inside the mock wp-admin chrome, onboarding included —
+ * the wizard is reached from the plugin's own menu, so it sits in the same
+ * shell as the rest.
+ *
+ * `?chrome=0` turns the chrome off, so the screens can still be rendered bare
+ * for the pixel diffs in the README — those were measured against exports that
+ * only ever showed the content column, with no sidebar.
+ */
+const CHROME = new URLSearchParams(window.location.search).get('chrome') !== '0'
+
 function Screen({ route }) {
-  if (route.view === 'add-new') return <AddNew key={route.tab} initialTab={route.tab} />
-  if (route.view === 'settings') return <SettingsPage key={route.tab} initialTab={route.tab} />
-  return <Onboarding step={route.step} />
+  const page =
+    route.view === 'add-new' ? (
+      <AddNew key={route.tab} initialTab={route.tab} />
+    ) : route.view === 'settings' ? (
+      <SettingsPage key={route.tab} initialTab={route.tab} />
+    ) : (
+      <Onboarding step={route.step} />
+    )
+
+  if (!CHROME) return page
+  return <WpChrome current={route.view}>{page}</WpChrome>
 }
 
 export default function App() {

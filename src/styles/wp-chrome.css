@@ -1,0 +1,248 @@
+/*
+ * Mock wp-admin chrome. Preview-only — see WpChrome.jsx.
+ *
+ * Colours and metrics are WordPress's own defaults (the "fresh" admin scheme),
+ * so the preview sits at the right size relative to the real thing:
+ *   admin bar 32px · admin menu 160px · folded menu 36px · breakpoint 960px
+ *   #1d2327 chrome · #2c3338 hover/submenu · #2271b1 current · #72aee6 link
+ *
+ * Everything stays inside .bp3d-app like the rest of the UI — nothing here
+ * may select html or body.
+ */
+
+.bp3d-wpshell {
+  --bp3d-bar-h: 32px;
+  --bp3d-menu-w: 160px;
+
+  /* Both full-height screens (.bp3d-admin, .bp3d-ob-page) measure against
+     --bp3d-viewport rather than 100vh. Re-pointing it here at the space left
+     under the bar is all it takes for them to fit the well. */
+  --bp3d-viewport: calc(100vh - var(--bp3d-bar-h));
+
+  min-height: 100vh;
+  background: #f0f0f1;
+}
+
+/* ============================================================
+   Admin bar
+   ============================================================ */
+.bp3d-adminbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  height: var(--bp3d-bar-h);
+  background: #1d2327;
+  color: #f0f0f1;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.bp3d-adminbar__group {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bp3d-adminbar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--bp3d-bar-h);
+  padding: 0 10px;
+  color: #f0f0f1;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.bp3d-adminbar__item:hover {
+  background: #2c3338;
+  color: #72aee6;
+}
+
+.bp3d-adminbar__item--icon {
+  padding: 0 8px;
+}
+
+.bp3d-adminbar__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #d63638;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.bp3d-adminbar__avatar {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+  border-radius: 50%;
+  background: #8c8f94;
+  color: #1d2327;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* ============================================================
+   Admin menu
+   ============================================================ */
+.bp3d-adminmenu {
+  position: fixed;
+  top: var(--bp3d-bar-h);
+  bottom: 0;
+  left: 0;
+  z-index: 9990;
+  display: flex;
+  flex-direction: column;
+  width: var(--bp3d-menu-w);
+  padding-bottom: 12px;
+  background: #1d2327;
+  color: #f0f0f1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.bp3d-adminmenu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bp3d-adminmenu__sep {
+  height: 5px;
+  margin: 0 0 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bp3d-adminmenu__link,
+.bp3d-adminmenu__collapse {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 34px;
+  color: #f0f0f1;
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: left;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.bp3d-adminmenu__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  flex: none;
+  opacity: 0.6;
+}
+
+.bp3d-adminmenu__name {
+  padding: 8px 12px 8px 0;
+}
+
+.bp3d-adminmenu__link:hover,
+.bp3d-adminmenu__collapse:hover {
+  background: #2c3338;
+  color: #72aee6;
+}
+
+.bp3d-adminmenu__link:hover .bp3d-adminmenu__icon,
+.bp3d-adminmenu__collapse:hover .bp3d-adminmenu__icon {
+  opacity: 1;
+}
+
+.bp3d-adminmenu__item--current > .bp3d-adminmenu__link {
+  position: relative;
+  background: #2271b1;
+  color: #fff;
+  font-weight: 600;
+}
+
+.bp3d-adminmenu__item--current > .bp3d-adminmenu__link .bp3d-adminmenu__icon {
+  opacity: 1;
+}
+
+/* the little arrow WordPress points at the open submenu */
+.bp3d-adminmenu__item--current > .bp3d-adminmenu__link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0;
+  height: 0;
+  margin-top: -8px;
+  border-style: solid;
+  border-width: 8px 8px 8px 0;
+  border-color: transparent #f0f0f1 transparent transparent;
+}
+
+/* two classes, so it outranks `.bp3d-adminmenu ul` above rather than
+   needing !important */
+.bp3d-adminmenu .bp3d-adminsubmenu {
+  padding: 7px 0 8px;
+  background: #2c3338;
+}
+
+.bp3d-adminsubmenu__link {
+  display: block;
+  width: 100%;
+  padding: 6px 12px 6px 36px;
+  color: #c3c4c7;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  transition: color 0.1s ease;
+}
+
+.bp3d-adminsubmenu__link:hover {
+  color: #72aee6;
+}
+
+.bp3d-adminsubmenu__link--current {
+  color: #fff;
+  font-weight: 600;
+}
+
+.bp3d-adminmenu__collapse {
+  margin-top: auto;
+  padding-top: 10px;
+  color: #a7aaad;
+  font-size: 13px;
+}
+
+/* ============================================================
+   Content well
+   ============================================================ */
+.bp3d-wpcontent {
+  margin-left: var(--bp3d-menu-w);
+  padding-top: var(--bp3d-bar-h);
+}
+
+/* WordPress folds the menu to icons below 960px. */
+@media screen and (max-width: 960px) {
+  .bp3d-wpshell {
+    --bp3d-menu-w: 36px;
+  }
+
+  .bp3d-adminmenu__name,
+  .bp3d-adminsubmenu {
+    display: none;
+  }
+
+  .bp3d-adminmenu__item--current > .bp3d-adminmenu__link::after {
+    display: none;
+  }
+}
