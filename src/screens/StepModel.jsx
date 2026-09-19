@@ -1,6 +1,7 @@
 import Stepper from '../components/Stepper'
 import Highlights from '../components/Highlights'
 import { ArrowRightIcon, PlayIcon } from '../components/icons'
+import { asset } from '../lib/paths'
 
 export default function StepModel({ userName = 'Rubyat', onNext, onHelp }) {
   return (
@@ -16,7 +17,7 @@ export default function StepModel({ userName = 'Rubyat', onNext, onHelp }) {
 
       <figure className="bp3d-ob-hero">
         <img
-          src="/assets/onboarding-image.png"
+          src={asset('assets/onboarding-image.png')}
           alt="A 3D model of a lounge chair with rotate, zoom, pan and AR view controls"
         />
       </figure>

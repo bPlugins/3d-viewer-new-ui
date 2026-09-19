@@ -6,8 +6,33 @@ WordPress plugin once the visuals are signed off.
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm run build
+npm run build    # writes to docs/, see "Hosting" below
 ```
+
+**Live:** https://bplugins.github.io/3d-viewer-new-ui/
+
+## Hosting
+
+Served as a GitHub Pages *project* page from `main` / `docs`, no build step on
+GitHub's side — `npm run build` writes straight into `docs/`, which is committed.
+
+- `vite.config.js` sets `base: '/3d-viewer-new-ui/'` so every emitted asset URL
+  carries the repo name. Get that wrong and the page loads with no JS/CSS: view
+  source and you'd see requests for `/assets/…` (site root) instead of
+  `/3d-viewer-new-ui/assets/…` (Pages URL).
+- `src/lib/paths.js` exports `asset(path)`, used everywhere an `<img>` points at
+  something in `public/assets/` (`OnboardingLayout`, `StepModel`, `AddNew`'s
+  `PREVIEW_SRC`). It resolves against `import.meta.env.BASE_URL` instead of a
+  hardcoded `/assets/…`, for the same reason.
+- `public/.nojekyll` stops GitHub Pages running the build through Jekyll.
+- Routing is hash-based already (`#/onboarding/1`, …), which is what makes a
+  project page this simple: everything before the `#` is just the Pages URL, so
+  there's no server-side rewrite to configure and no 404.html trick needed —
+  unlike path-based routing, which breaks on a refresh of any route but `/`.
+
+To deploy a change: `npm run build`, commit the updated `docs/`, push `main`.
+First-time setup on GitHub: **Settings → Pages → Source: Deploy from a branch →
+Branch: `main` / `docs`**.
 
 ## Routes
 

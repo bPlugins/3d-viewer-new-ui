@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import AdminLayout from '../admin/AdminLayout'
 import { TabStrip, SettingRow, Toggle, RadioGroup, Segmented, Slider } from '../admin/controls'
+import { asset } from '../lib/paths'
 import {
   BoxIcon, CameraIcon, PhoneIcon, CheckIcon, ZapIcon,
 } from '../components/icons'
@@ -19,7 +20,7 @@ const TABS = [
   { id: 'preview', label: 'Preview', Icon: Eye },
 ]
 
-const PREVIEW_SRC = '/assets/model-preview.jpg'
+const PREVIEW_SRC = asset('assets/model-preview.jpg')
 
 function LivePreviewCard() {
   return (
