@@ -1,0 +1,585 @@
+/* ============================================================
+   Page shell
+   ============================================================ */
+.ob-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: var(--pill-top) 20px 60px;
+  background: var(--page-bg);
+}
+
+.ob-blob {
+  position: absolute;
+  right: -272px;
+  bottom: 25px;
+  width: 483px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.ob-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---- brand pill ----
+   Measured directly off the Figma export (pill x543-736, icon x574-607,
+   both on a 1280px-canvas render) — the padding is symmetric (31px each
+   side), not the 10/28 split used before. */
+.ob-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 55px;
+  padding: 0 31px;
+  border-radius: 999px;
+  background: var(--card-bg);
+  margin-bottom: var(--pill-gap);
+}
+
+.ob-brand__mark {
+  width: 34px;
+  height: 34px;
+  flex: none;
+}
+
+.ob-brand__name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-brand);
+}
+
+/* ---- card ---- */
+.ob-card {
+  width: var(--card-w);
+  max-width: 100%;
+  padding: var(--card-pad);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+}
+
+/* ============================================================
+   Stepper
+   ============================================================ */
+.ob-stepper {
+  display: flex;
+  align-items: center;
+}
+
+.ob-stepper__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.ob-stepper__dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--step-idle-bg);
+  color: var(--step-idle-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  flex: none;
+}
+
+.ob-stepper__label {
+  font-size: var(--step-label-size);
+  font-weight: 500;
+  color: var(--step-idle-label);
+  white-space: nowrap;
+}
+
+.ob-stepper__step--active .ob-stepper__dot {
+  background: var(--step-active);
+  color: #fff;
+}
+
+.ob-stepper__step--active .ob-stepper__label {
+  color: var(--step-active);
+}
+
+.ob-stepper__line {
+  width: 51px;
+  height: 2px;
+  background: var(--step-line);
+  margin: 0 12px;
+  flex: none;
+}
+
+.ob-stepper__spacer {
+  flex: 1;
+}
+
+.ob-exit {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--step-label-size);
+  font-weight: 500;
+  color: var(--step-idle-label);
+}
+
+/* A single stroked circle-x glyph, not a filled badge with an icon on top —
+   ring and X are the same flat colour (#E2E8F0), confirmed against the
+   Figma export at full zoom. */
+.ob-exit svg {
+  color: #e2e8f0;
+  flex: none;
+}
+
+/* ============================================================
+   Shared copy blocks
+   ============================================================ */
+.ob-eyebrow {
+  margin: 36px 0 0;
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  line-height: var(--eyebrow-lh);
+  color: var(--text-eyebrow);
+}
+
+.ob-eyebrow--muted {
+  margin-top: 34px;
+  font-size: var(--eyebrow-size-sm);
+  color: var(--text-eyebrow-muted);
+}
+
+.ob-eyebrow--muted + .ob-title {
+  margin-top: 18px;
+}
+
+.ob-title {
+  margin: 19px 0 0;
+  font-size: var(--h2-size);
+  font-weight: var(--h2-weight);
+  line-height: var(--h2-lh);
+  letter-spacing: var(--h2-tracking);
+  color: var(--text-heading);
+}
+
+.ob-lede {
+  margin: 20px 0 0;
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-lh);
+  color: var(--text-body);
+}
+
+.ob-lede--narrow {
+  max-width: 430px;
+}
+
+.ob-lede--mid {
+  max-width: 470px;
+}
+
+.ob-section-label {
+  margin: 0 0 16px;
+  font-size: var(--label-size);
+  font-weight: var(--label-weight);
+  color: var(--text-title);
+}
+
+.ob-divider {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--divider);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.ob-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 45px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: var(--btn-size);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ob-btn--primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.ob-btn--primary:hover {
+  background: #2f45e0;
+}
+
+.ob-btn--ghost {
+  padding: 0 18px;
+  border: 1px solid var(--row-border);
+  background: #fff;
+  color: var(--text-quiet);
+}
+
+.ob-btn--ghost:hover {
+  background: var(--row-bg-neutral);
+}
+
+.ob-btn--link {
+  height: 45px;
+  padding: 0;
+  letter-spacing: 0;
+  color: var(--text-eyebrow);
+  font-weight: 500;
+}
+
+.ob-btn--link:hover {
+  color: var(--text-heading);
+}
+
+/* ---- footer row ---- */
+.ob-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 37px;
+}
+
+.ob-footer__end {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+/* ============================================================
+   Screen 1 — Welcome
+   ============================================================ */
+.ob-hero {
+  width: 100%;
+  margin-top: 26px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ob-hero img {
+  width: 100%;
+  height: auto;
+}
+
+.ob-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 19px;
+  margin-top: 36px;
+}
+
+.ob-highlight {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  column-gap: 14px;
+  row-gap: 4px;
+  align-items: start;
+  /* rows must not absorb the leftover height of a taller sibling column,
+     otherwise columns with fewer body lines drift down (Figma aligns them) */
+  align-content: start;
+}
+
+.ob-highlight__icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  grid-row: span 2;
+}
+
+.ob-highlight__icon--green {
+  background: var(--tile-green-bg);
+  color: var(--tile-green-fg);
+}
+
+.ob-highlight__icon--blue {
+  background: var(--tile-blue-bg);
+  color: var(--tile-blue-fg);
+}
+
+.ob-highlight__icon--purple {
+  background: var(--tile-purple-bg);
+  color: var(--tile-purple-fg);
+}
+
+.ob-highlight__title {
+  margin: 0;
+  font-size: var(--card-header-size);
+  font-weight: var(--card-header-weight);
+  line-height: var(--card-header-lh);
+  color: var(--text-title);
+  align-self: center;
+}
+
+.ob-highlight__body {
+  margin: 0;
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-lh);
+  color: var(--text-body);
+}
+
+/* ---- help pill (screen 1 footer) ---- */
+.ob-help {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 45px;
+  padding: 0 16px 0 10px;
+  border-radius: 8px;
+  background: var(--tile-blue-bg);
+  text-align: left;
+}
+
+.ob-help__play {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--tile-blue-fg);
+  color: #fff;
+  flex: none;
+}
+
+.ob-help__title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--tile-blue-fg);
+}
+
+.ob-help__sub {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-quiet);
+}
+
+/* ============================================================
+   Screen 2 — Feature grid
+   ============================================================ */
+.ob-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 38px;
+}
+
+.ob-feature {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  column-gap: 14px;
+  padding: 21px;
+  border: 1px solid var(--feature-card-border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.ob-feature__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--icon-dark);
+  flex: none;
+}
+
+/* Every card's icon glyph is the same dark navy (--icon-dark) — only the
+   tile background differs, one shade per card, sampled directly off the
+   export (color census of each tile, screen 2). "grey" was wrong for two
+   cards: Augmented Reality is a pale lavender and Hotspots is a pale sky
+   blue, neither of them grey. */
+.ob-feature__icon--blue {
+  background: #eef2ff;
+}
+.ob-feature__icon--violet {
+  background: #f5f3ff;
+}
+.ob-feature__icon--mint {
+  background: #ecfdf5;
+}
+.ob-feature__icon--rose {
+  background: #fdf2f8;
+}
+.ob-feature__icon--lavender {
+  background: #faf5ff;
+}
+.ob-feature__icon--sky {
+  background: #f0f9ff;
+}
+
+.ob-feature__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ob-feature__title {
+  margin: 0;
+  font-size: var(--card-header-size);
+  font-weight: var(--card-header-weight);
+  line-height: var(--card-header-lh);
+  color: var(--text-title);
+}
+
+.ob-feature__body {
+  margin: 10px 0 0;
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-lh);
+  color: var(--text-body);
+}
+
+.ob-check {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--checkbox-fill);
+  color: #fff;
+  flex: none;
+}
+
+.ob-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  margin-top: 13px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ob-badge--included {
+  background: var(--badge-included-bg);
+  color: var(--badge-included-fg);
+}
+
+.ob-badge--pro {
+  background: var(--badge-pro-bg);
+  color: var(--badge-pro-fg);
+}
+
+/* ============================================================
+   Screen 3 — Method picker
+   ============================================================ */
+.ob-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ob-method {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 75px;
+  padding: 0 18px;
+  border: 1px solid var(--row-border);
+  border-radius: 10px;
+  background: var(--row-bg-neutral);
+  text-align: left;
+  transition: box-shadow 0.15s ease;
+}
+
+.ob-method--pink {
+  background: var(--row-bg-pink);
+}
+.ob-method--green {
+  background: var(--row-bg-green);
+}
+
+.ob-method:hover {
+  box-shadow: 0 0 0 1px var(--card-border);
+}
+
+.ob-method__icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--row-border);
+  background: #fff;
+  color: var(--icon-dark);
+  flex: none;
+}
+
+.ob-method__title {
+  display: block;
+  margin: 0;
+  font-size: var(--card-header-size);
+  font-weight: var(--card-header-weight);
+  line-height: var(--card-header-lh);
+  color: var(--text-title);
+}
+
+.ob-method--pink .ob-method__title {
+  color: var(--elementor-fg);
+}
+.ob-method--green .ob-method__title {
+  color: var(--shortcode-fg);
+}
+
+.ob-method__sub {
+  display: block;
+  margin: 4px 0 0;
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-lh);
+  color: var(--text-body);
+}
+
+.ob-note {
+  margin: 35px 0 16px;
+  font-size: var(--body-size);
+  font-weight: 700;
+  line-height: var(--body-lh);
+  color: var(--text-title);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 800px) {
+  .ob-features,
+  .ob-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .ob-footer {
+    flex-wrap: wrap;
+  }
+
+  .ob-stepper__line {
+    width: 24px;
+    margin: 0 8px;
+  }
+}
