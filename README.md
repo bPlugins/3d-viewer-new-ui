@@ -43,6 +43,7 @@ Hash routing, deliberately tiny — the plugin will own real routing.
 | `#/onboarding/1` … `/3` | Onboarding: Model · Customize · Publish |
 | `#/add-new/model` · `settings` · `style` · `preview` | Add New (4 tabs) |
 | `#/settings/general` · `woo` · `shortcode` · `selectors` | 3D Viewer Settings (4 tabs) |
+| `#/dashboard/welcome` · `demos` · `pricing` · `compare` · `extensions` | Dashboard (Help & Demos) |
 
 ## Stack
 
@@ -241,6 +242,56 @@ the build that preceded them rather than against Figma. All eleven routes come
 out **byte-identical** standalone, and identical again under the same tolerant
 diff when rendered inside a page carrying wp-admin's global stylesheet rules,
 body classes and `#wpwrap` / `#wpcontent` / `#wpbody-content` nesting.
+
+## Dashboard
+
+`pages/Dashboard.jsx` (navbar + footer) and `dashboard/` (one file per tab),
+styled by `styles/dashboard.css` under the `bp3d-dash-*` prefix. Reached from
+**Help & Demos**, **Extensions** and **Upgrade** in the 3D Viewer submenu.
+
+Unlike the screens above, these values were not measured off PNGs. They were read
+straight from the node data in the `.fig` (bottom row of the "3D Viewer plugin
+Updated" page): positions, auto-layout gaps and paddings, fills, strokes, radii,
+text styles and image crops. That also covers the line box Figma actually lays
+out (it snaps 14px/1.4 to 20px, 23.04px/auto to 28px, and so on). Each frame was
+then rendered from that same data as a reference and diffed against the build at
+1440px, using the tolerant diff described under Fidelity (content column only):
+
+| Screen | % different |
+| --- | --- |
+| Extensions | 0.29 % |
+| Demos | 0.37 % |
+| Feature Comparison | 0.48 % |
+| Pricing | 0.52 % |
+| Welcome | 0.64 % (mostly the 👋, which the reference renderer can't draw) |
+
+- **Icons.** `dashboard/icons.jsx` is generated. The Lucide glyphs are copied
+  verbatim from lucide-static 1.47. The rest (the HugeIcons-style quick-access
+  set, the changelog glyphs, the crowns) are the vector networks from the file.
+  `weight` is the stroke weight in px, as Figma reports it.
+- **Images** in `public/assets/dashboard/` were exported from the `.fig` and
+  downscaled to 2× their display size.
+- **Fixed box widths.** Figma rounds auto-width text up to the next whole pixel
+  and lays rows out from those boxes, so the navbar tabs, the demo filter pills
+  and the hero chips carry their widths from the file.
+
+Found in the file and resolved:
+
+- **Invisible icons.** The Pro plan's "Most Popular" star and its Buy Now arrow
+  sit outside their icon frames, so Figma clips them away. They're shown here
+  (the Max card's arrow is visible in the file).
+- **Letter-spacing.** A few texts (the pricing title, the FAQ heading, the
+  uppercase tags) carry tracking in a `RAW` unit that Figma doesn't apply; the
+  glyph layout in the file has none. None is applied here.
+- **"8 features are exclusive to Pro."** The table marks 9 rows Pro-only, so
+  the count is computed from the rows: it reads 9.
+- **Upgrade button.** The label and its crown icon (swapped in for the
+  component's plus) are both black in the file, and are kept black.
+- **Placeholder copy.** Only the first FAQ answer and the Gutenberg steps
+  exist in the file. The other two FAQ answers and the Elementor and Shortcode
+  steps are written here.
+- **"Modules" tab.** Its icon frame is empty in the file; the 13px slot is
+  kept, empty.
 
 ## Design inconsistencies found in the Figma file
 

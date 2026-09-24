@@ -74,10 +74,12 @@ const MENU = [
     submenu: [
       { id: 'all', label: 'All 3D Viewers' },
       { id: 'add-new', label: 'Add New', href: '#/add-new/model' },
-      { id: 'presets', label: 'Presets' },
       { id: 'settings', label: 'Settings', href: '#/settings/general' },
       { id: 'onboarding', label: 'Onboarding', href: '#/onboarding/1' },
-      { id: 'help', label: 'Help & Demos' },
+      // the last three are how the dashboard frames draw the menu
+      { id: 'dashboard', label: 'Help & Demos', href: '#/dashboard/welcome', tone: 'help' },
+      { id: 'extensions', label: 'Extensions', href: '#/dashboard/extensions', badge: 'NEW' },
+      { id: 'upgrade', label: 'Upgrade', href: '#/dashboard/pricing', tone: 'upgrade', arrow: true },
     ],
   },
   { sep: true },
@@ -113,16 +115,18 @@ function AdminMenu({ current }) {
                     <li key={sub.id}>
                       <button
                         type="button"
-                        className={
-                          sub.id === current
-                            ? 'bp3d-adminsubmenu__link bp3d-adminsubmenu__link--current'
-                            : 'bp3d-adminsubmenu__link'
-                        }
+                        className={[
+                          'bp3d-adminsubmenu__link',
+                          sub.tone && `bp3d-adminsubmenu__link--${sub.tone}`,
+                          sub.id === current && 'bp3d-adminsubmenu__link--current',
+                        ].filter(Boolean).join(' ')}
                         onClick={() => {
                           if (sub.href) window.location.hash = sub.href
                         }}
                       >
                         {sub.label}
+                        {sub.badge && <span className="bp3d-adminsubmenu__badge">{sub.badge}</span>}
+                        {sub.arrow && <span className="bp3d-adminsubmenu__arrow" aria-hidden="true" />}
                       </button>
                     </li>
                   ))}

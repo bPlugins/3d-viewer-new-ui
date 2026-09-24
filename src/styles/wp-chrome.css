@@ -216,6 +216,49 @@
   font-weight: 600;
 }
 
+/* How the dashboard frames draw the plugin's last three submenu entries. */
+.bp3d-adminsubmenu__link:has(.bp3d-adminsubmenu__badge) {
+  white-space: nowrap;
+}
+
+.bp3d-adminsubmenu__link--help {
+  color: #f08600;
+}
+
+.bp3d-adminsubmenu__link--upgrade {
+  font-weight: 600;
+  color: #adff2f;
+}
+
+.bp3d-adminsubmenu__link--help:hover,
+.bp3d-adminsubmenu__link--upgrade:hover {
+  color: #fff;
+}
+
+.bp3d-adminsubmenu__badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: #1267ea;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #fff;
+  vertical-align: 1px;
+}
+
+/* the solid arrowhead after "Upgrade" */
+.bp3d-adminsubmenu__arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 8px;
+  border-style: solid;
+  border-width: 5px 0 5px 11px;
+  border-color: transparent transparent transparent currentColor;
+}
+
 .bp3d-adminmenu__collapse {
   margin-top: auto;
   padding-top: 10px;

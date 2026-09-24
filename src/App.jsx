@@ -5,21 +5,25 @@ import StepCustomize from './screens/StepCustomize'
 import StepPublish from './screens/StepPublish'
 import AddNew from './pages/AddNew'
 import SettingsPage from './pages/Settings'
+import Dashboard from './pages/Dashboard'
 import WpChrome from './admin/WpChrome'
 import './styles/base.css'
 import './styles/onboarding.css'
 import './styles/admin.css'
+import './styles/dashboard.css'
 import './styles/wp-chrome.css'
 
 /*
  * Hash routing, kept deliberately tiny — the plugin will own real routing.
  *   #/onboarding/1 · #/onboarding/2 · #/onboarding/3
  *   #/add-new      · #/settings
+ *   #/dashboard/welcome · demos · pricing · compare · extensions
  */
 function parseHash() {
   const raw = window.location.hash.replace(/^#\/?/, '')
   if (raw.startsWith('add-new')) return { view: 'add-new', tab: raw.split('/')[1] }
   if (raw.startsWith('settings')) return { view: 'settings', tab: raw.split('/')[1] }
+  if (raw.startsWith('dashboard')) return { view: 'dashboard', tab: raw.split('/')[1] }
   const n = Number(raw.split('/').pop())
   return { view: 'onboarding', step: n >= 1 && n <= 3 ? n : 1 }
 }
@@ -57,12 +61,20 @@ function Screen({ route }) {
       <AddNew key={route.tab} initialTab={route.tab} />
     ) : route.view === 'settings' ? (
       <SettingsPage key={route.tab} initialTab={route.tab} />
+    ) : route.view === 'dashboard' ? (
+      <Dashboard tab={route.tab} />
     ) : (
       <Onboarding step={route.step} />
     )
 
   if (!CHROME) return page
-  return <WpChrome current={route.view}>{page}</WpChrome>
+  // Extensions and Upgrade have their own entries in the 3D Viewer submenu
+  const current =
+    route.view !== 'dashboard' ? route.view
+      : route.tab === 'extensions' ? 'extensions'
+      : route.tab === 'pricing' ? 'upgrade'
+      : 'dashboard'
+  return <WpChrome current={current}>{page}</WpChrome>
 }
 
 export default function App() {
